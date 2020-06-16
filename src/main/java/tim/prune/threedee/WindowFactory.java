@@ -41,17 +41,10 @@ public abstract class WindowFactory
 			Class<?> universeClass = Class.forName("com.sun.j3d.utils.universe.SimpleUniverse");
 			has3d = (universeClass != null);
 		}
-		catch (ClassNotFoundException e)
+		catch (ClassNotFoundException | NoClassDefFoundError | UnsatisfiedLinkError e)
 		{
-			// no java3d classes available
-		}
-		catch (NoClassDefFoundError nfe)
-		{
-			// no java3d classes available
-		}
-		catch (UnsatisfiedLinkError ule)
-		{
-			// java3d classes found but no native components
+			// no java3d classes available or no native components
+			e.printStackTrace();
 		}
 		return has3d;
 	}
